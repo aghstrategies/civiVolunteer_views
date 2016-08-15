@@ -1,0 +1,3 @@
+name = CiviVolunteer Views
+description = Makes civiVolunteer tables available to views.
+core = 7.x
