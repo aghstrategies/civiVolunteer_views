@@ -140,6 +140,16 @@ function civivolunteer_views_views_data() {
       'field' => 'project_id',
     ),
   );
+  // $data['civicrm_volunteer_project']['table']['join']['civicrm_contact'] = array(
+  //   'left_table' => 'civicrm_volunteer_project_contact',
+  //   'left_field' => 'project_id',
+  //   'field' => 'id',
+  // );
+  // $data['civicrm_volunteer_project_contact']['table']['join']['civicrm_contact'] = array(
+  //   'left_field' => 'id',
+  //   'field' => 'contact_id',
+  // );
+
   // TODO: FK to option_value
   // $data['civicrm_volunteer_need']['visibility_id'] = array();
   // $data['civicrm_volunteer_need']['role_id'] = array();
@@ -191,8 +201,8 @@ function civivolunteer_views_views_data() {
     ),
   );
   $data['civicrm_volunteer_project']['description'] = array(
-    'title' => t('Source'),
-    'help' => t('Source of the relationship'),
+    'title' => t('Description'),
+    'help' => t('Description of the Volunteer Project'),
     'field' => array(
       'handler' => 'views_handler_field',
       'click sortable' => TRUE,
@@ -225,14 +235,47 @@ function civivolunteer_views_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  // // TODO for civivolunteer project table
-  // $data['civicrm_volunteer_project_contact']['table']['group'] = t('civiVolunteer - Volunteer Project Contacts');
-  // $data['civicrm_volunteer_project_contact']['table']['base'] = array(
-  //   'field' => 'id',
-  //   'title' => t('CiviVolunteer Project Contacts'),
-  //   'help' => t("View displays CiviVolunteer Project Contacts."),
-  // );
+  // TODO for civivolunteer project contact table
+  $data['civicrm_volunteer_project_contact']['table']['group'] = t('CiviVolunteer Volunteer Project Contacts');
+  $data['civicrm_volunteer_project_contact']['table']['base'] = array(
+    'field' => 'id',
+    'title' => t('CiviVolunteer Project Contacts'),
+    'help' => t("View displays CiviVolunteer Project Contacts."),
+  );
   // //NOTE: fields for project contacts: id, project_id, contact_id, relationship_type_id
+  // Explain how this table joins to others.
+  $data['civicrm_volunteer_project_contact']['table']['join'] = array(
+    // Directly links to activity table
+    'civicrm_volunteer_project' => array(
+      'left_field' => 'id',
+      'field' => 'project_id',
+    ),
+  );
+  $data['civicrm_volunteer_project_contact']['contact_id'] = array(
+    'title' => t('Volunteer Project Contact ID'),
+    'real field' => 'contact_id',
+    'help' => t('The contact related to the volunteer project.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => FALSE,
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument',
+    ),
+    'relationship' => array(
+      'base' => 'civicrm_contact',
+      'base field' => 'id',
+      'handler' => 'views_handler_relationship',
+      'label' => t('CiviCRM Volunteer Project Contact ID'),
+      'relationship table' => 'civicrm_volunteer_project',
+      'relationship field' => 'project_id',
+      'other_field' => 'contact_id',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+      'allow empty' => TRUE,
+    ),
+  );
   return $data;
 }
 
