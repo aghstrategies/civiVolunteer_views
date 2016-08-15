@@ -1,66 +1,59 @@
 <?php
-/**
- * Implements civivolunteer_views_views_data().
- * Run hook_views_data for civiVolunteer
- */
-function civivolunteer_views_views_data() {
-  if (!civicrm_initialize() || CRM_Utils_System::isInUpgradeMode()) {
-    return;
-  }
-
-  // for civivolunteer need table
-  $data['civicrm_volunteer_need']['table']['group'] = t('civiVolunteer Volunteer Needs');
-  $data['civicrm_volunteer_need']['table']['base'] = array(
-    'field' => 'id',
-    'title' => t('CiviVolunteer Needs'),
-    'help' => t("View displays CiviVolunteer Needs."),
-  );
-  $data['civicrm_volunteer_need']['id'] = array(
-    'title' => t('Example content'),
-    'help' => t('Some example content that references a node.'),
-    // Define a relationship to the {node} table, so example_table views can
-    // add a relationship to nodes. If you want to define a relationship the
-    // other direction, use hook_views_data_alter(), or use the 'implicit' join
-    // method described above.
-    // 'relationship' => array(
-    //   'base' => 'node', // The name of the table to join with.
-    //   'base field' => 'nid', // The name of the field on the joined table.
-    //   // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
-    //   'handler' => 'views_handler_relationship',
-    //   'label' => t('Default label for the relationship'),
-    //   'title' => t('Title shown when adding the relationship'),
-    //   'help' => t('More information on this relationship'),
-    // ),
-  );
-
-  // for civivolunteer project table
-  // $data['civicrm_volunteer_project']['table']['base'] = array(
-  //   'field' => 'id',
-  //   'title' => t('CiviVolunteer Projects'),
-  //   'help' => t("View displays CiviVolunteer Projects."),
-  // );
-  //
-  // // for civivolunteer project contacts table
-  // $data['civicrm_volunteer_project_contact']['table']['base'] = array(
-  //   'field' => 'id',
-  //   'title' => t('CiviVolunteer Project Contacts'),
-  //   'help' => t("View displays CiviVolunteer Project Contacts."),
-  // );
-  // //Joins for contacts table
-  // $data['civicrm_volunteer_project_contact']['table']['join'] = array(
-  //   // Directly links to contact table - link A
-  //   'civicrm_contact' => array(
-  //     'left_field' => 'id',
-  //     'field' => 'contact_id',
-  //   ),
-  // );
-  // $data['civicrm_volunteer_project_contact']['table']['join'] = array(
-  //   // Directly links to project table - link A
-  //   'civicrm_volunteer_project' => array(
-  //     'left_field' => 'id',
-  //     'field' => 'project_id',
-  //   ),
-  // );
-
-  return $data;
-}
+// function civivolunteer_views_views_data() {
+//
+//   // for civivolunteer need table
+//   $data['civicrm_volunteer_need']['table']['group'] = t('civiVolunteer Volunteer Needs');
+//   $data['civicrm_volunteer_need']['table']['base'] = array(
+//     'field' => 'id',
+//     'title' => t('CiviVolunteer Needs'),
+//     'help' => t("View displays CiviVolunteer Needs."),
+//   );
+//   $data['civicrm_volunteer_need']['id'] = array(
+//     'title' => t('Example content'),
+//     'help' => t('Some example content that references a node.'),
+//     // Define a relationship to the {node} table, so example_table views can
+//     // add a relationship to nodes. If you want to define a relationship the
+//     // other direction, use hook_views_data_alter(), or use the 'implicit' join
+//     // method described above.
+//     // 'relationship' => array(
+//     //   'base' => 'node', // The name of the table to join with.
+//     //   'base field' => 'nid', // The name of the field on the joined table.
+//     //   // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+//     //   'handler' => 'views_handler_relationship',
+//     //   'label' => t('Default label for the relationship'),
+//     //   'title' => t('Title shown when adding the relationship'),
+//     //   'help' => t('More information on this relationship'),
+//     // ),
+//   );
+//
+//   // for civivolunteer project table
+//   $data['civicrm_volunteer_project']['table']['base'] = array(
+//     'field' => 'id',
+//     'title' => t('CiviVolunteer Projects'),
+//     'help' => t("View displays CiviVolunteer Projects."),
+//   );
+//
+//   // for civivolunteer project contacts table
+//   $data['civicrm_volunteer_project_contact']['table']['base'] = array(
+//     'field' => 'id',
+//     'title' => t('CiviVolunteer Project Contacts'),
+//     'help' => t("View displays CiviVolunteer Project Contacts."),
+//   );
+//   //Joins for contacts table
+//   $data['civicrm_volunteer_project_contact']['table']['join'] = array(
+//     // Directly links to contact table - link A
+//     'civicrm_contact' => array(
+//       'left_field' => 'id',
+//       'field' => 'contact_id',
+//     ),
+//   );
+//   $data['civicrm_volunteer_project_contact']['table']['join'] = array(
+//     // Directly links to project table - link A
+//     'civicrm_volunteer_project' => array(
+//       'left_field' => 'id',
+//       'field' => 'project_id',
+//     ),
+//   );
+//
+//   return $data;
+// }
