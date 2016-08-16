@@ -251,31 +251,31 @@ function civivolunteer_views_views_data() {
       'field' => 'project_id',
     ),
   );
-  $data['civicrm_volunteer_project_contact']['contact_id'] = array(
-    'title' => t('Volunteer Project Contact ID'),
-    'real field' => 'contact_id',
-    'help' => t('The contact related to the volunteer project.'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => FALSE,
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument',
-    ),
-    'relationship' => array(
-      'base' => 'civicrm_contact',
-      'base field' => 'id',
-      'handler' => 'views_handler_relationship',
-      'label' => t('CiviCRM Volunteer Project Contact ID'),
-      'relationship table' => 'civicrm_volunteer_project',
-      'relationship field' => 'project_id',
-      'other_field' => 'contact_id',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_numeric',
-      'allow empty' => TRUE,
-    ),
-  );
+  // $data['civicrm_volunteer_project_contact']['contact_id'] = array(
+  //   'title' => t('Volunteer Project Contact ID'),
+  //   'real field' => 'contact_id',
+  //   'help' => t('The contact related to the volunteer project.'),
+  //   'field' => array(
+  //     'handler' => 'views_handler_field',
+  //     'click sortable' => FALSE,
+  //   ),
+  //   'argument' => array(
+  //     'handler' => 'views_handler_argument',
+  //   ),
+  //   'relationship' => array(
+  //     'base' => 'civicrm_contact',
+  //     'base field' => 'id',
+  //     // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+  //     'handler' => 'views_handler_relationship',
+  //     'label' => t('CiviCRM Volunteer Project Contact ID'),
+  //     'title' => t('Contacts'),
+  //     'help' => t('More information on this relationship'),
+  //   ),
+  //   'filter' => array(
+  //     'handler' => 'views_handler_filter_numeric',
+  //     'allow empty' => TRUE,
+  //   ),
+  // );
   return $data;
 }
 
