@@ -3,13 +3,14 @@
  * Implements hook_views_data().
  */
 function civivolunteer_views_views_data() {
-  // for civivolunteer need table
+  // Makes Table for Volunteer Needs avaliable to views
   $data['civicrm_volunteer_need']['table']['group'] = t('civiVolunteer - Volunteer Needs');
   $data['civicrm_volunteer_need']['table']['base'] = array(
     'field' => 'id',
     'title' => t('CiviVolunteer Needs'),
     'help' => t("View displays CiviVolunteer Needs."),
   );
+  // Fields for Volunteer Needs Table
   $data['civicrm_volunteer_need']['id'] = array(
     'title' => t('Volunteer Need ID'),
     'help' => t('ID of Volunteer need for civiVolunteer'),
@@ -175,35 +176,14 @@ function civivolunteer_views_views_data() {
   //   ),
   // );
 
-  $data['civicrm_contact']['table']['join']['civicrm_volunteer_project_contact'] = array(
-    'left_field' => 'contact_id',
-    'field' => 'id',
-  );
-  $data['civicrm_volunteer_project']['table']['join']['civicrm_volunteer_project_contact'] = array(
-    'left_field' => 'project_id',
-    'field' => 'id',
-  );
-
-  $data['civicrm_volunteer_project_contact']['table']['join'] = array(
-    'civicrm_volunteer_project' => array(
-      'left_field' => 'id',
-      'field' => 'project_id',
-    ),
-    'civicrm_contact' => array(
-      'left_field' => 'id',
-      'field' => 'contact_id',
-    ),
-  );
-
-  // for civivolunteer project table
+  // Makes Table for Volunteer Projects avaliable to views
   $data['civicrm_volunteer_project']['table']['group'] = t('civiVolunteer - Volunteer Projects');
   $data['civicrm_volunteer_project']['table']['base'] = array(
     'field' => 'id',
     'title' => t('CiviVolunteer Projects'),
     'help' => t("View displays CiviVolunteer Projects."),
   );
-
-  // NOTE: Fields for volunteer Projects table that we are skipping for now: entity_table entity_id,  loc_block_id, campaign_id
+  // Fields for Volunteer Projects
   $data['civicrm_volunteer_project']['id'] = array(
     'title' => t('Volunteer Project ID'),
     'help' => t('ID of Volunteer Project for civiVolunteer'),
@@ -276,13 +256,15 @@ function civivolunteer_views_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  // TODO for civivolunteer project contact table
+
+  // Makes Table for Volunteer Project Contacts avaliable to views
   $data['civicrm_volunteer_project_contact']['table']['group'] = t('CiviVolunteer Volunteer Project Contacts');
   $data['civicrm_volunteer_project_contact']['table']['base'] = array(
     'field' => 'id',
     'title' => t('CiviVolunteer Project Contacts'),
     'help' => t("View displays CiviVolunteer Project Contacts."),
   );
+  // Fields for Volunteer Project Contacts table
   $data['civicrm_volunteer_project_contact']['id'] = array(
     'title' => t('Volunteer Project Contact Row ID'),
     'help' => t('ID of Volunteer Project Contact row for civiVolunteer'),
@@ -302,7 +284,6 @@ function civivolunteer_views_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-
 
   $data['civicrm_volunteer_project_contact']['relationship_type'] = array(
     'title' => t('Volunteer Project Contact Relationship Type'),
@@ -377,39 +358,26 @@ function civivolunteer_views_views_data() {
     ),
   );
 
-  // // Civipark reference
-  // $data['field_data_field_civicrm_park_reference']['table']['group'] = t('Drupal Civicrm Park Reference');
-  // $data['field_data_field_civicrm_park_reference']['table']['base'] = array(
-  //   'field' => 'id',
-  //   'title' => t('Drupal Civicrm Park Reference'),
-  //   'help' => t("Park"),
-  // );
-  // $data['field_data_field_civicrm_park_reference']['id'] = array(
-  //   'title' => t('Drupal Civicrm Park Reference'),
-  //   'help' => t('The civiid of the park'),
-  //   'field' => array(
-  //     'handler' => 'views_handler_field',
-  //     'click sortable' => FALSE,
-  //   ),
-  //   'argument' => array(
-  //     'handler' => 'views_handler_argument',
-  //   ),
-  //   'relationship' => array(
-  //     'base' => 'civicrm_volunteer_project_contact',
-  //     'base field' => 'contact_id',
-  //     'handler' => 'views_handler_relationship',
-  //     'label' => t('CiviCRM Park Contact ID'),
-  //     'relationship table' => 'civicrm_contact',
-  //     'relationship field' => 'id',
-  //     'other_field' => 'contact_id',
-  //   ),
-  //   'filter' => array(
-  //     'handler' => 'views_handler_filter_numeric',
-  //     'allow empty' => TRUE,
-  //   ),
-  // );
+  // Joins for Civicrm Volunteer Project Contact Table
+  $data['civicrm_contact']['table']['join']['civicrm_volunteer_project_contact'] = array(
+    'left_field' => 'contact_id',
+    'field' => 'id',
+  );
+  $data['civicrm_volunteer_project']['table']['join']['civicrm_volunteer_project_contact'] = array(
+    'left_field' => 'project_id',
+    'field' => 'id',
+  );
 
-  //TODO work in progress
+  $data['civicrm_volunteer_project_contact']['table']['join'] = array(
+    'civicrm_volunteer_project' => array(
+      'left_field' => 'id',
+      'field' => 'project_id',
+    ),
+    'civicrm_contact' => array(
+      'left_field' => 'id',
+      'field' => 'contact_id',
+    ),
+  );
   return $data;
 }
 
@@ -420,16 +388,3 @@ function civivolunteer_views_views_data_alter(&$data) {
   civivolunteer_views_views_data();
 
 }
-
-
-// function civivolunteer_views_views_pre_view(&$view, &$display_id, &$args) {
-//   if ($view->name == 'test_all_volunteer_opportunities') {
-//     //get contact id of park reference
-//     // $wrapper = $entity->wrapper();
-//     // $contactId = $node->field_civicrm_park_reference;
-//     // print_r($contactId);
-//     // die();
-//     //filter to only show vol ops with that benie
-//      //$args[] = NEW_FILTER_VALUE;
-//   }
-// }
