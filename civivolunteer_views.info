@@ -1,3 +1,5 @@
 name = CiviVolunteer Views
 description = Makes civiVolunteer tables available to views.
 core = 7.x
+files[] = civivolunteer_views.inc
+files[] = civicrm_handler_field_volunteer.inc

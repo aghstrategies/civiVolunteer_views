@@ -35,27 +35,36 @@ class civicrm_handler_field_volunteer extends civicrm_handler_field {
       if (!civicrm_initialize()) {
         return;
       }
-      self::$_recordType = CRM_Core_PseudoConstant::get('CRM_Activity_DAO_ActivityContact', 'record_type_id');
+      try {
+        $option = civicrm_api3('VolunteerProjectContact', 'getoptions', array(
+          'field' => "relationship_type_id",
+          'context' => "get",
+        ));
+        self::$_recordType = $option['values'];
+      }
+      catch (CiviCRM_API3_Exception $e) {
+        watchdog('civivolunteer_views', 'API error finding volunter project contact relationship types: %error', array('error' => $e->getMessage));
+      }
     }
   }
   function option_definition() {
     $options = parent::option_definition();
-    $options['record_type'] = array('default' => 0);
+    $options['relationship_type'] = array('default' => 0);
     return $options;
   }
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
-    $recordTypes = array(0 => 'Any');
+    $relTypes = array(0 => 'Any');
     foreach (self::$_recordType as $id => $type) {
-      $recordTypes[$id] = $type;
+      $relTypes[$id] = $type;
     }
-    $form['record_type'] = array(
+    $form['relationship_type'] = array(
       '#type' => 'radios',
-      '#title' => 'Record type for this field',
-      '#options' => $recordTypes,
+      '#title' => 'Project/contact relationship type',
+      '#options' => $relTypes,
       '#description' => t('Record type to be displayed for this field'),
-      '#default_value' => $this->options['record_type'],
-      '#fieldset' => 'record_type_choices',
+      '#default_value' => $this->options['relationship_type'],
+      '#fieldset' => 'relationship_type_choices',
     );
   }
   /**
@@ -68,11 +77,11 @@ class civicrm_handler_field_volunteer extends civicrm_handler_field {
     $this->table_alias = $this->query->add_table($this->table, $this->relationship);
     // Make sure the join to civicrm_contact form the civicrm_activity_contact table
     // Otherwise the displayed field will always be the same as the base table's record
-    if ($this->table == 'civicrm_activity_contact' && isset($this->view->query->table_queue[$this->table_alias]['join']->field)) {
+    if ($this->table == 'civicrm_volunteer_project_contact' && isset($this->view->query->table_queue[$this->table_alias]['join']->field)) {
       $this->view->query->table_queue[$this->table_alias]['join']->field = $this->definition['relationship field'];
     }
     $def = $this->definition;
-    $leftField         = $this->definition['base'] == 'civicrm_activity_contact' ? $this->field : $this->definition['other_field'];
+    $leftField         = $this->definition['base'] == 'civicrm_volunteer_project_contact' ? $this->field : $this->definition['other_field'];
     $def['table']      = $this->definition['base'];
     $def['field']      = $this->definition['base field'];
     $def['left_table'] = $this->table_alias;
@@ -90,11 +99,11 @@ class civicrm_handler_field_volunteer extends civicrm_handler_field {
     $join->construct();
     $join->adjusted = TRUE;
     // Add a join condition to the on clause to narrow down the relationship type shown
-    if (isset($this->options['record_type']) && $this->options['record_type']) {
+    if (isset($this->options['relationship_type']) && $this->options['relationship_type']) {
       $this->query->table_queue[$this->table_alias]['join']->extra[] = array(
-        'value' => $this->options['record_type'],
+        'value' => $this->options['relationship_type'],
         'numeric' => TRUE,
-        'field' => 'record_type_id',
+        'field' => 'relationship_type_id',
         'operator' => '=',
       );
     }
