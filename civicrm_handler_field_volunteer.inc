@@ -1,5 +1,12 @@
 <?php
 /**
+ * @file
+ * Add a table of contributions from related contacts.
+ *
+ * Copyright (C) 2013-15, AGH Strategies, LLC <info@aghstrategies.com>
+ * Licensed under the GNU Affero Public License 3.0 (see LICENSE.txt)
+ */
+/**
  * Field Handler for volunteer project contacts modeled off of the field handler for activity contact field in CiviCRM 4.7
  */
 class civicrm_handler_field_volunteer extends civicrm_handler_field {
