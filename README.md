@@ -1,3 +1,1 @@
-Drupal Module that makes civiVolunteer tables available to views.
-
-Need to connect to node so we can get id of park from page
+This is a drupal module for drupal sites using [civiVolunteer](https://civicrm.org/extensions/civivolunteer) and [Views](https://www.drupal.org/project/views). It makes civivolunteer tables (Volunteer Projects, Volunteer Needs and Volunteer Project Contacts) available to views so that site administrators can create views of civiVolunteer opportunities, projects etc.
