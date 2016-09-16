@@ -230,23 +230,13 @@ function civivolunteer_views_views_data() {
     ),
   );
   $data['civicrm_volunteer_project']['description'] = array(
-    'title' => t('Description'),
-    'help' => t('Description of the Volunteer Project'),
+ 'title' => t('Description'),
+    'help' => t('The Volunteer Project\'s Full Description'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'civicrm_handler_field_markup',
       'click sortable' => TRUE,
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-      'allow empty' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-  );
+    ),  
+);
   $data['civicrm_volunteer_project']['is_active'] = array(
     'title' => t('Is active?'),
     'help' => t('Is the volunteer project active?'),
